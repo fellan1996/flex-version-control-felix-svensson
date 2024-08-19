@@ -1,0 +1,56 @@
+/* form {
+    display: flex;
+    flex-direction: column;
+} */
+/* div {
+    background-color: aqua;
+} */
+ html{
+    padding: 0;
+ }
+ body {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+ }
+ #header-background {
+    margin: 0;
+    background-color: #b1bcf8;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+ }
+ form > * {
+    width: 280px;
+ }
+ form {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(175, 197, 197);
+    gap: 4px;
+    margin-top: 15px;
+    align-items: center;
+    padding: 15px;
+    border-radius: 5%;
+ }
+ form > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+ }
+ form > button {
+    width: 54px;
+ }
+ #board {
+    display: flex;
+ }
+ #board > * {
+    min-width: 250px;
+    min-height: 250px;
+    width: 45%;
+    background-color: beige;
+    margin: 5px;
+ }

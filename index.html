@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="scripts.js" defer></script>
+    <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
-</head>
-<body>
-    <p>hello world</p>
-</body>
+  </head>
+  <body>
+    <div id="header-background">
+      <h1>Post-it notes</h1>
+    </div>
+    <div id="create-post-it">
+      <form id="form">
+        <input type="text" id="header" placeholder="header" />
+        <textarea
+          name="paragraph"
+          id="text"
+          placeholder="Enter text here"
+        ></textarea>
+        <div id="color-picker">
+          <label>Background color:</label>
+          <input type="color" name="" id="color-picker" value="#b1bcf8" />
+        </div>
+        <button type="submit">Add</button>
+      </form>
+    </div>
+    <div id="board">
+    </div>
+    <button id="delete-all">Delete all post-its</button>
+  </body>
 </html>
