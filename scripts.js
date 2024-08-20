@@ -39,22 +39,23 @@ function createPostIt(event) {
   const cookieJSON = getCookie("postIts");
   const cookieArray = cookieJSON ? JSON.parse(cookieJSON) : [];
   const valueObj = {
-    header: event.target[0].value,
-    paragraph: event.target[1].value,
-    backgroundColor: event.target[2].value,
-  };
-  if (!Array.isArray(cookieArray)) {
-    console.log("It wasn't an array for some reason");
-  } else {
-    cookieArray.push(valueObj);
-    setCookie("postIts", JSON.stringify(cookieArray), 7);
-  }
-
-  displayPostIts();
+      header: event.target[0].value,
+      paragraph: event.target[1].value,
+      backgroundColor: event.target[2].value,
+    };
+    if (!Array.isArray(cookieArray)) {
+        console.log("It wasn't an array for some reason");
+    } else {
+        cookieArray.push(valueObj);
+        setCookie("postIts", JSON.stringify(cookieArray), 7);
+    }
+    
+    displayPostIts();
+    form.reset();
 }
 function displayPostIts() {
-  const cookieArray = JSON.parse(getCookie("postIts"));
-  const board = document.getElementById("board");
+    const cookieArray = JSON.parse(getCookie("postIts"));
+    const board = document.getElementById("board");
   board.innerHTML = "";
   !cookieArray
     ? ""
