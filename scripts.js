@@ -10,9 +10,8 @@ function getCookie(name) {
   const cookieArray = document.cookie.split(";");
   for (let i = 0; i < cookieArray.length; i++) {
     let cookie = cookieArray[i].trim();
-    if (cookie.indexOf(`${name}=` == 0)){
-        console.log(cookie.substring(name.length + 1));
-        return cookie.substring(name.length + 1);
+    if (cookie.indexOf(`${name}=`) == 0) {
+      return cookie.substring(name.length + 1);
     }
   }
   console.log("hello");
@@ -25,11 +24,18 @@ function setCookie(name, value, daysLeft) {
   document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
 }
 function deletePostIt(event) {
-  console.log(event.target);
+  const [header, index] = event.target.id.split(";");
+  const cookieJSON = getCookie("postIts");
+  const cookieArray = cookieJSON ? JSON.parse(cookieJSON) : [];
+  const newCookieArray = cookieArray.filter((valueObj, i) => {
+    if (valueObj.header === header && index == i) return false;
+    return true;
+  });
+  setCookie("postIts", JSON.stringify(newCookieArray), 7);
+  displayPostIts();
 }
 function createPostIt(event) {
   event.preventDefault();
-  console.log(document.cookie);
   const cookieJSON = getCookie("postIts");
   const cookieArray = cookieJSON ? JSON.parse(cookieJSON) : [];
   const valueObj = {
@@ -50,22 +56,25 @@ function displayPostIts() {
   const cookieArray = JSON.parse(getCookie("postIts"));
   const board = document.getElementById("board");
   board.innerHTML = "";
-  cookieArray.forEach((valueObj, i) => {
-    const postIt = document.createElement("div");
-    const deleteBtn = document.createElement("button");
-    deleteBtn.id = valueObj.header + ";" + i;
-    deleteBtn.addEventListener("click", deletePostIt);
-    const header = document.createElement("h3");
-    header.innerHTML = valueObj.header;
-    const paragraph = document.createElement("p");
-    paragraph.innerHTML = valueObj.paragraph;
-    postIt.append(header);
-    postIt.append(paragraph);
-    postIt.append(deleteBtn);
-    board.append(postIt);
-    postIt.style.backgroundColor = valueObj.backgroundColor;
-    postIt.id = `post-it-nr.${i + 1}`;
-  });
+  !cookieArray
+    ? ""
+    : cookieArray.forEach((valueObj, i) => {
+        const postIt = document.createElement("div");
+        const deleteBtn = document.createElement("button");
+        deleteBtn.id = valueObj.header + ";" + i;
+        deleteBtn.addEventListener("click", deletePostIt);
+        deleteBtn.innerHTML = "Delete";
+        const header = document.createElement("h3");
+        header.innerHTML = valueObj.header;
+        const paragraph = document.createElement("p");
+        paragraph.innerHTML = valueObj.paragraph;
+        postIt.append(header);
+        postIt.append(paragraph);
+        postIt.append(deleteBtn);
+        board.append(postIt);
+        postIt.style.backgroundColor = valueObj.backgroundColor;
+        postIt.id = `post-it-nr.${i + 1}`;
+      });
 }
 
 window.onload = displayPostIts;
