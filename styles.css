@@ -27,6 +27,7 @@ form {
   align-items: center;
   padding: 15px;
   border-radius: 5%;
+
 }
 form > div {
   display: flex;
@@ -53,6 +54,10 @@ form > button {
   align-items: center;
   flex-direction: column;
   position: relative;
+  font-family: "Nanum Pen Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+    box-shadow: 2px 5px 10px rgb(131, 131, 131);
 }
 #board > * > button {
   position: absolute;
