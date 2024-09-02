@@ -1,10 +1,16 @@
-const deleteAllButton = document.getElementById("delete-all");
-deleteAllButton.addEventListener("click", () => {
-  setCookie("postIts", null, null);
-  displayPostIts();
-});
-const form = document.getElementById("form");
+
+const headerDiv = document.getElementById("header-background");
+const postItFormTemplate = document.querySelector("post-it-form");
+const form = postItFormTemplate.shadowRoot.querySelector("form");
+const wcHeaderInput = postItFormTemplate.shadowRoot.getElementById("header-input");
+
 form.addEventListener("submit", createPostIt);
+wcHeaderInput.addEventListener("click", () => {
+  headerDiv.style.animation = "collapse-header 1.3s forwards";
+  setTimeout(() => {
+    headerDiv.className = "collapsed";
+  }, 1300);
+});
 
 function getCookie(name) {
   const cookieArray = document.cookie.split(";");
@@ -39,23 +45,23 @@ function createPostIt(event) {
   const cookieJSON = getCookie("postIts");
   const cookieArray = cookieJSON ? JSON.parse(cookieJSON) : [];
   const valueObj = {
-      header: event.target[0].value,
-      paragraph: event.target[1].value,
-      backgroundColor: event.target[2].value,
-    };
-    if (!Array.isArray(cookieArray)) {
-        console.log("It wasn't an array for some reason");
-    } else {
-        cookieArray.push(valueObj);
-        setCookie("postIts", JSON.stringify(cookieArray), 7);
-    }
-    
-    displayPostIts();
-    form.reset();
+    header: event.target[0].value,
+    paragraph: event.target[1].value,
+    backgroundColor: event.target[2].value,
+  };
+  if (!Array.isArray(cookieArray)) {
+    console.log("It wasn't an array for some reason");
+  } else {
+    cookieArray.push(valueObj);
+    setCookie("postIts", JSON.stringify(cookieArray), 7);
+  }
+
+  displayPostIts();
+  form.reset();
 }
 function displayPostIts() {
-    const cookieArray = JSON.parse(getCookie("postIts"));
-    const board = document.getElementById("board");
+  const cookieArray = JSON.parse(getCookie("postIts"));
+  const board = document.getElementById("board");
   board.innerHTML = "";
   !cookieArray
     ? ""

@@ -8,12 +8,43 @@ body {
   flex-direction: column;
   gap: 25px;
 }
+@keyframes collapse-header {
+  from {height: 159px; margin-top:0px;}
+  to {height: 2px; margin-top:25px;}
+}
 #header-background {
   margin: 0;
-  background-color: #b1bcf8;
+  
+  background-image: linear-gradient(#82bc90, #73a383);
+  box-shadow: 1px 1px 10px #4a584d;
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  /* height: 15px; */
+  /* animation-name: collapse-header; */
+  /* animation: collapse-header1.3s;  */
+  /* animation-delay: 1s; */
+  overflow: hidden;
+  /* transition: box-shadow 0.3s;  */
+}
+h1 {
+  font-size: 4rem;
+  text-shadow: 2px 2px 5px #0000007a;
+  background-image: url('pictures/trädgård.jpg');
+  background-clip: text;
+  color: transparent;
+  background-color: white;
+}
+#header-background.collapsed {
+  /* height: 2px;  */
+  /* margin-top: 25px;  */
+  transition: box-shadow 0.3s, height 0.3s; 
+}
+#header-background.collapsed:hover {
+  box-shadow: 1px 10px 10px #4a584d;
+  height: 5px;
+  margin-top: 12px;
 }
 form > * {
   width: 280px;
@@ -74,4 +105,28 @@ form > button {
 }
 #delete-all {
   margin-top: 25px;
+}
+.parent {
+  display: grid; 
+  grid-template-columns: minmax(min-content, 35%) 1fr;
+  grid-template-rows: 50px 70px;
+  width: 90%;
+}
+
+.parent > div {
+  background-color: lightgreen; 
+}
+
+.parent > div:nth-child(2n) {
+  background-color: aqua;
+  border: 1px ridge gray;
+}
+html {
+  cursor: url('pictures/icons8-3d-pointer-32.png'), auto;
+}
+input, textarea {
+  cursor: url('pictures/edit-pen-icons8.png'), auto;
+}
+button, a {
+  cursor: url('pictures/icons8-hand-up-32.png') 10 0, auto;
 }
