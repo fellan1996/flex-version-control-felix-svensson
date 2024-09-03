@@ -1,18 +1,32 @@
 html {
   padding: 0;
 }
+:root {
+  --hand-cursor: url('pictures/icons8-hand-up-32.png') 10 0, auto; 
+  --edit-pen-cursor: url('pictures/edit-pen-icons8.png'), auto;
+  --3d-pointer: url('pictures/icons8-3d-pointer-32.png'), auto;
+  --gap-body: 25px;
+}
 body {
   margin: 0;
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 25px;
+  gap: var(--gap-body);
 }
-@keyframes collapse-header {
-  from {height: 159px; margin-top:0px;}
-  to {height: 2px; margin-top:25px;}
+/* @keyframes collapse-header {
+  from {height: 159px;}
+  to {height: 0px;}
+} */
+@keyframes lower-position {
+  from {transform: translateY(-50%);}
+  to {transform: translateY(-0%);}
 }
-#header-background {
+@keyframes rotate-content-180 {
+  from {transform: translateY(-50%), rotate(0deg);}
+  to {transform: rotate(180deg);}
+}
+#header-div {
   margin: 0;
   
   background-image: linear-gradient(#82bc90, #73a383);
@@ -21,12 +35,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 15px; */
-  /* animation-name: collapse-header; */
-  /* animation: collapse-header1.3s;  */
-  /* animation-delay: 1s; */
   overflow: hidden;
-  /* transition: box-shadow 0.3s;  */
+  position: relative;
+  height: 159px;
+  transition-property: height;
+  transition-duration: 500ms;
 }
 h1 {
   font-size: 4rem;
@@ -36,15 +49,30 @@ h1 {
   color: transparent;
   background-color: white;
 }
-#header-background.collapsed {
+#header-div.collapsed {
   /* height: 2px;  */
   /* margin-top: 25px;  */
-  transition: box-shadow 0.3s, height 0.3s; 
+  height: 0px;
 }
-#header-background.collapsed:hover {
-  box-shadow: 1px 10px 10px #4a584d;
-  height: 5px;
-  margin-top: 12px;
+#header-div.expanded {
+  /* height: 2px;  */
+  /* margin-top: 25px;  */
+  height: 159px;
+}
+#hide-header-div-btn {
+  border-radius: 100%;
+  position:relative;
+  bottom: var(--gap-body); 
+  transform: translateY(-50%);
+  transition-property: transform;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(.6, .04, .77, .45);
+}
+#hide-header-div-btn.collapsed {
+  transform: rotate(180deg);
+}
+#hide-header-div-btn.expanded {
+  transform: translateY(-50%)
 }
 form > * {
   width: 280px;
@@ -122,11 +150,8 @@ form > button {
   border: 1px ridge gray;
 }
 html {
-  cursor: url('pictures/icons8-3d-pointer-32.png'), auto;
-}
-input, textarea {
-  cursor: url('pictures/edit-pen-icons8.png'), auto;
+  cursor: var(--3d-pointer);
 }
 button, a {
-  cursor: url('pictures/icons8-hand-up-32.png') 10 0, auto;
+  cursor: var(--hand-cursor)
 }

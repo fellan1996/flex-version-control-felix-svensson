@@ -1,8 +1,9 @@
+import { getCSSVar } from "../helperFunctions/helpers.js";
+
 class PostItForm extends HTMLElement {
   constructor() {
     super();
-
-    // Create a template for the form
+    this.attachShadow({ mode: "open" });
     const template = document.createElement("template");
     template.innerHTML = `
         <style>
@@ -12,24 +13,36 @@ class PostItForm extends HTMLElement {
           form {
             display: flex;
             flex-direction: column;
-            background-color: rgb(175, 197, 197);
+            background-color: ${
+              this.getAttribute("background") ?? rgb(175, 197, 197)
+            };
             gap: 4px;
             margin-top: 15px;
             align-items: center;
             padding: 15px;
             border-radius: 5%;
-          }
-          form > div {
+            }
+            form > div {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 2px;
+            }
+            form > button {
+              width: 54px;
+              }
+            label {
+              cursor: ${getCSSVar("", "--3d-pointer")};
+            }
+          input, textarea {
+            cursor: ${getCSSVar("", "--edit-pen-cursor")};
           }
-          form > button {
-            width: 54px;
+          button {
+            cursor: ${getCSSVar("", "--hand-cursor")};
           }
         </style>
         <form id="form">
+        <p><slot name="title-in-form">Default text in form</slot></p>
           <input type="text" id="header-input" maxlength="35" required placeholder="header" />
           <textarea name="paragraph" id="text" placeholder="Enter text here"></textarea>
           <div class="color-picker">
@@ -40,13 +53,9 @@ class PostItForm extends HTMLElement {
         </form>
       `;
 
-    // Attach a shadow DOM to the element
-    this.attachShadow({ mode: "open" });
-
     // Clone the template content and append it to the shadow DOM
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.handleInputClick = this.handleInputClick.bind(this);
-
   }
 
   handleInputClick(event) {
@@ -59,12 +68,25 @@ class PostItForm extends HTMLElement {
     if (this.headerInput) {
       this.headerInput.addEventListener("click", this.handleInputClick);
     }
+    console.log(getCSSVar("", "--hand-cursor"));
   }
 
   // Lifecycle method called when the element is disconnected from the DOM
   disconnectedCallback() {
     if (this.headerInput) {
       this.headerInput.removeEventListener("click", this.handleInputClick);
+    }
+  }
+  static get observedAttributes() {
+    return ["background"];
+  }
+
+  // Callback when an observed attribute changes
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "background") {
+      this.form = this.shadowRoot.getElementById("form");
+      this.form.style.backgroundColor = newValue;
+      // this.shadowRoot.style.backgroundColor = newValue; // Update background color
     }
   }
 }

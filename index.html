@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="webComponents/PostItForm.js" defer></script>
-    <script src="scripts.js" defer></script>
+    <script type="module" src="webComponents/PostItForm.js" defer></script>
+    <script type="module" src="scripts.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,10 +15,11 @@
     <title>Post-it notes</title>
   </head>
   <body>
-    <div id="header-background">
+    <div id="header-div">
       <h1>Post-it notes</h1>
     </div>
-    <div id="create-post-it"><post-it-form></post-it-form></div>
+    <button id="hide-header-div-btn"><img src="pictures/icons8-expand-24.png" alt="arrow"></button>
+    <div id="create-post-it"><post-it-form background="green"><span slot="title-in-form">Create a post it</span></post-it-form></div>
     <div id="board"></div>
     <main class="parent">
       <div>HelloHello HelloHelloHelloHelloHello</div>
