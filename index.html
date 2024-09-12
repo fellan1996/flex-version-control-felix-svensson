@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="webComponents/PostItForm.js" defer></script>
     <script type="module" src="scripts.js" defer></script>
-    <script
-      type="module"
-      src="./webComponents/Reziser.js"
-      defer
-    ></script>
+    <script type="module" src="./webComponents/Reziser.js" defer></script>
+    <script type="module" src="./webComponents/HandyScroll.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -33,25 +30,35 @@
     </div>
     <div id="board"></div>
     <resizer-box
-      width="300px"
-      height="100px"
-      margin="25px"
-      resize-right
-      max-height="500px"
-      max-width="550px"
-      resize-bottom-right
-      resize-bottom-left
-      resize-bottom
+    width="300px"
+    height="100px"
+    margin="25px"
+    max-height="500px"
+    max-width="550px"
+    resize-bottom-right
+    resize-bottom-left
+    >
+    <div class="myBox" slot="content" >
+          <main class="parent">
+            <div>HelloHello HelloHelloHelloHelloHello</div>
+            <div>HelloHello HelloHelloHelloHelloHello</div>
+            <div>HelloHello HelloHelloHelloHelloHello</div>
+            <div>HelloHello HelloHelloHelloHelloHello</div>
+          </main>
+        </div>
+      </resizer-box>
+      <div
+      id="custom-viewport"
+      style="height: fit-content; width: 260px; overflow: auto;"
       >
-      <div class="myBox" slot="content">
-        <main class="parent">
+      <div id="horizontally-scrollable" class="custom-grid">
           <div>HelloHello HelloHelloHelloHelloHello</div>
           <div>HelloHello HelloHelloHelloHelloHello</div>
           <div>HelloHello HelloHelloHelloHelloHello</div>
           <div>HelloHello HelloHelloHelloHelloHello</div>
-        </main>
       </div>
-    </resizer-box>
+      <handy-scroll owner="horizontally-scrollable" viewport="custom-viewport"></handy-scroll>
+    </div>
     <p>
       icons and cursors by
       <a target="_blank" href="https://icons8.com">Icons8</a>

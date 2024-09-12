@@ -1,6 +1,10 @@
 const headerDiv = document.getElementById("header-div");
 const hideHeaderDivBtn = document.getElementById("hide-header-div-btn");
 const postItFormTemplate = document.querySelector("post-it-form");
+const handyScroller = document.querySelector("handy-scroll");
+const handyScrollerDiv = document.querySelector("div");
+handyScrollerDiv.style.cursor = url('./pictures/icons8-3d-pointer-32.png'), auto;
+
 const form = postItFormTemplate.shadowRoot.querySelector("form");
 
 form.addEventListener("submit", createPostIt);

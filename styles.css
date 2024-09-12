@@ -140,9 +140,20 @@ form > button {
   grid-template-rows: 50px 70px;
   max-width: 500px;
 }
+.custom-grid {
+  display: grid; 
+  grid-template-columns: 250px 250px;
+  grid-template-rows: 50px 70px;
+  width: 500px;
+}
 
+.custom-grid > div {
+  background-color: lightgreen; 
+  border: 1px ridge gray;
+}
 .parent > div {
   background-color: lightgreen; 
+  border: 1px ridge gray;
 }
 
 .parent > div:nth-child(2n) {
