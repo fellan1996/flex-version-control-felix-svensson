@@ -87,6 +87,8 @@ class Resizer extends HTMLElement {
   #resizeObserver = null;
   #scrollInterval = null;
   #isResizing = false;
+  #shouldScroll = false;
+  #checkMousePositionInterval = null;
 
   static observedAttributes = [
     attributes.WIDTH,
@@ -410,35 +412,32 @@ class Resizer extends HTMLElement {
 
     const onDrag = (event) => {
       event.preventDefault();
-      this.#isResizing = true;
-
+      let mouseY = event.clientY;
+      
       const shiftY = event.clientY - bottomHandle.getBoundingClientRect().top;
-
+      
       bottomHandle.setPointerCapture(event.pointerId);
-
-      bottomHandle.onpointermove = (e) => {
-        this._setHeight(e.clientY, shiftY, "bottom");
-        if (!this.#isResizing) return;
-        const bottomThreshold = 30;
-        const scrollSpeed = 10;
-        //TODO the numbers in the console.log below is not updating as the pointer is moving
-        console.log(event.clientY, window.innerHeight, bottomThreshold)
-        if (event.clientY > window.innerHeight - bottomThreshold) {
-          // If cursor is within the threshold distance from the bottom of the viewport
-          if (!this.#scrollInterval) {
-            // Start scrolling if not already scrolling
-            this.#scrollInterval = setInterval(() => {
-              window.scrollBy(0, scrollSpeed);
-            }, 20); // Scroll every 20 milliseconds
-          }
-        } else {
-          // Stop scrolling if the cursor moves away from the threshold
-          this._stopScrolling();
+      
+      const scrollAndResize = () => {
+        const bottomThreshold = 30; 
+        const scrollDistance = 30;
+        const distanceToBottom = window.innerHeight - mouseY;
+        if (distanceToBottom < bottomThreshold) {
+          const scrollSpeed = scrollDistance * (1 - distanceToBottom / bottomThreshold); 
+          window.scrollBy(0, scrollSpeed);
+          this._setHeight(mouseY, shiftY, "bottom");
         }
       };
-
+      if(!this.#checkMousePositionInterval) {
+        this.#checkMousePositionInterval = setInterval(scrollAndResize, 40); 
+      }
+    
+      bottomHandle.onpointermove = (e) => {
+        mouseY = e.clientY; 
+        this._setHeight(e.clientY, shiftY, "bottom"); 
+      };
+    
       bottomHandle.onpointerup = () => {
-        this.#isResizing = false;
         this._stopScrolling();
         bottomHandle.onpointermove = null;
         bottomHandle.onpointerup = null;
@@ -451,9 +450,9 @@ class Resizer extends HTMLElement {
   }
 
   _stopScrolling() {
-    if (this.#scrollInterval) {
-      clearInterval(this.#scrollInterval);
-      this.#scrollInterval = null;
+    if (this.#checkMousePositionInterval) {
+      clearInterval(this.#checkMousePositionInterval);
+      this.#checkMousePositionInterval = null;
     }
   }
 
@@ -486,7 +485,7 @@ class Resizer extends HTMLElement {
 
     const onDrag = (event) => {
       event.preventDefault();
-
+      let mouseY = event.clientY;
       const shiftX =
         event.clientX - bottomRightHandle.getBoundingClientRect().left;
       const shiftY =
@@ -494,12 +493,28 @@ class Resizer extends HTMLElement {
 
       bottomRightHandle.setPointerCapture(event.pointerId);
 
+      const scrollAndResize = () => {
+        const bottomThreshold = 30; 
+        const scrollDistance = 30;
+        const distanceToBottom = window.innerHeight - mouseY;
+        if (distanceToBottom < bottomThreshold) {
+          const scrollSpeed = scrollDistance * (1 - distanceToBottom / bottomThreshold); 
+          window.scrollBy(0, scrollSpeed);
+          this._setHeight(mouseY, shiftY, "bottom");
+        }
+      };
+
+      this.#checkMousePositionInterval = setInterval(scrollAndResize, 40); 
+
       bottomRightHandle.onpointermove = (e) => {
+        mouseY = e.clientY;
         this._setWidth(e.clientX, shiftX, "right");
         this._setHeight(e.clientY, shiftY, "bottom");
+
       };
 
       bottomRightHandle.onpointerup = () => {
+        this._stopScrolling();
         bottomRightHandle.onpointermove = null;
         bottomRightHandle.onpointerup = null;
       };
@@ -515,6 +530,7 @@ class Resizer extends HTMLElement {
 
     const onDrag = (event) => {
       event.preventDefault();
+      let mouseY = event.clientY;
 
       const shiftX =
         event.clientX - bottomLeftHandle.getBoundingClientRect().left;
@@ -523,12 +539,26 @@ class Resizer extends HTMLElement {
 
       bottomLeftHandle.setPointerCapture(event.pointerId);
 
+      const scrollAndResize = () => {
+        const bottomThreshold = 30; 
+        const scrollDistance = 30;
+        const distanceToBottom = window.innerHeight - mouseY;
+        if (distanceToBottom < bottomThreshold) {
+          const scrollSpeed = scrollDistance * (1 - distanceToBottom / bottomThreshold); 
+          window.scrollBy(0, scrollSpeed);
+          this._setHeight(mouseY, shiftY, "bottom");
+        }
+      };
+      this.#checkMousePositionInterval = setInterval(scrollAndResize, 40); 
+
       bottomLeftHandle.onpointermove = (e) => {
+        mouseY = e.clientY;
         this._setWidth(e.clientX, shiftX, "left");
         this._setHeight(e.clientY, shiftY, "bottom");
       };
 
       bottomLeftHandle.onpointerup = () => {
+        this._stopScrolling();
         bottomLeftHandle.onpointermove = null;
         bottomLeftHandle.onpointerup = null;
       };

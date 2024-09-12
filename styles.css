@@ -138,7 +138,7 @@ form > button {
   display: grid; 
   grid-template-columns: minmax(min-content, 35%) 1fr;
   grid-template-rows: 50px 70px;
-  width: 90%;
+  max-width: 500px;
 }
 
 .parent > div {
