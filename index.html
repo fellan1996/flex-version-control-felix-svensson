@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="webComponents/PostItForm.js" defer></script>
     <script type="module" src="scripts.js" defer></script>
+    <script
+      type="module"
+      src="./webComponents/Reziser.js"
+      defer
+    ></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,18 +23,35 @@
     <div id="header-div">
       <h1>Post-it notes</h1>
     </div>
-    <button id="hide-header-div-btn"><img src="pictures/icons8-expand-24.png" alt="arrow"></button>
-    <div id="create-post-it"><post-it-form background="green"><span slot="title-in-form">Create a post it</span></post-it-form></div>
+    <button id="hide-header-div-btn">
+      <img src="pictures/icons8-expand-24.png" alt="arrow" />
+    </button>
+    <div id="create-post-it">
+      <post-it-form background="green"
+        ><span slot="title-in-form">Create a post it</span></post-it-form
+      >
+    </div>
     <div id="board"></div>
-    <main class="parent">
-      <div>HelloHello HelloHelloHelloHelloHello</div>
-      <div>HelloHello HelloHelloHelloHelloHello</div>
-      <div>HelloHello HelloHelloHelloHelloHello</div>
-      <div>HelloHello HelloHelloHelloHelloHello</div>
-    </main>
-    <p>
+    <resizer-box
+      width="300px"
+      height="100px"
+      margin="25px"
+      resize-right
+      resize-bottom-right
+      resize-bottom
+      >
+      <div class="myBox" slot="content">
+        <main class="parent">
+          <div>HelloHello HelloHelloHelloHelloHello</div>
+          <div>HelloHello HelloHelloHelloHelloHello</div>
+          <div>HelloHello HelloHelloHelloHelloHello</div>
+          <div>HelloHello HelloHelloHelloHelloHello</div>
+        </main>
+      </div>
+    </resizer-box>
+    <!-- <p>
       icons and cursors by
       <a target="_blank" href="https://icons8.com">Icons8</a>
-    </p>
+    </p> -->
   </body>
 </html>

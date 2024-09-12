@@ -2,18 +2,8 @@ const headerDiv = document.getElementById("header-div");
 const hideHeaderDivBtn = document.getElementById("hide-header-div-btn");
 const postItFormTemplate = document.querySelector("post-it-form");
 const form = postItFormTemplate.shadowRoot.querySelector("form");
-const wcHeaderInput =
-  postItFormTemplate.shadowRoot.getElementById("header-input");
 
 form.addEventListener("submit", createPostIt);
-wcHeaderInput.addEventListener("click", () => {
-  // headerDiv.className = "collapsed";
-  // hideHeaderDivBtn.className = "collapsed";
-  hideHeaderDivBtn.style.animation = "rotate-content-180 500ms";
-  // setTimeout(() => {
-  //   hideHeaderDivBtn.style.animation = "";
-  // }, 1300);
-});
 
 hideHeaderDivBtn.addEventListener("click", () => {
   if (headerDiv.className === "collapsed") {
