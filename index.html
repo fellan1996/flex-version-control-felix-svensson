@@ -6,6 +6,7 @@
     <script type="module" src="webComponents/PostItForm.js" defer></script>
     <script type="module" src="scripts.js" defer></script>
     <script type="module" src="./webComponents/Reziser.js" defer></script>
+    <script type="module" src="./webComponents/CollapseAndExpand.js" defer></script>
     <script type="module" src="./webComponents/HandyScroll.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,14 +18,15 @@
     <title>Post-it notes</title>
   </head>
   <body>
-    <div id="header-div">
-      <h1>Post-it notes</h1>
+    <div id="header-div" class="expanded">
+      <!-- <h1 id="main-h1">Post-it notes</h1> -->
+      <h1 id="main-h1"><div>Post-it</div><div>notes</div></h1>
     </div>
-    <button id="hide-header-div-btn">
-      <img src="pictures/icons8-expand-24.png" alt="arrow" />
-    </button>
+    <div class="shadow-wrapper">
+      <img id="hide-header-div-btn" class="expanded" src="pictures/icons8-expand-24.png" alt="arrow" />
+    </div>
     <div id="create-post-it">
-      <post-it-form background="green"
+      <post-it-form background="lightgreen"
         ><span slot="title-in-form">Create a post it</span></post-it-form
       >
     </div>
@@ -36,6 +38,8 @@
     max-height="500px"
     max-width="550px"
     resize-bottom-right
+    resize-bottom
+    resize-right
     resize-bottom-left
     >
     <div class="myBox" slot="content" >
@@ -49,7 +53,7 @@
       </resizer-box>
       <div
       id="custom-viewport"
-      style="height: fit-content; width: 260px; overflow: auto;"
+      style="height: fit-content; width: min(75vw, 500px); overflow: auto;"
       >
       <div id="horizontally-scrollable" class="custom-grid">
           <div>HelloHello HelloHelloHelloHelloHello</div>
@@ -63,5 +67,8 @@
       icons and cursors by
       <a target="_blank" href="https://icons8.com">Icons8</a>
     </p>
+    <collapse-and-expand>
+      <div slot="container" style="background-color: green;" id="collapse-div-test"></div>
+    </collapse-and-expand>
   </body>
 </html>

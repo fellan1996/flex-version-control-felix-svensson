@@ -32,7 +32,6 @@ class HandyScroll extends HTMLElement {
   set viewport(viewportId) {
     this.setAttribute("viewport", viewportId);
   }
-
   get #isLatent() {
     return this.#internals.states.has("latent");
   }
@@ -45,7 +44,8 @@ class HandyScroll extends HTMLElement {
     let shadowRoot = this.attachShadow({ mode: "open" });
 
     let style = document.createElement("style");
-    style.textContent = `:host {
+    style.textContent = `
+:host {
   bottom: 0;
   min-height: 17px; /* based on https://codepen.io/sambible/post/browser-scrollbar-widths (fixes #3) */
   overflow: auto;
@@ -84,7 +84,8 @@ class HandyScroll extends HTMLElement {
 
 :host([viewport]:state(latent)) {
   position: fixed;
-}`;
+}
+`;
     shadowRoot.appendChild(style);
 
     this.#strut = document.createElement("div");
@@ -254,7 +255,6 @@ class HandyScroll extends HTMLElement {
       style.left = `${this.#owner.getBoundingClientRect().left}px`;
     }
     this.#strut.style.width = `${scrollWidth}px`;
-    this.#strut.style.cursor = `url('../pictures/icons8-3d-pointer-32.png'), auto`;
     // Fit component height to the native scroll bar height if needed
     if (scrollWidth > clientWidth) {
       style.height = `${this.offsetHeight - this.clientHeight + 1}px`; // +1px JIC

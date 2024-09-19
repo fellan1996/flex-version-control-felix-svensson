@@ -1,0 +1,101 @@
+import { getCSSVar } from "../helperFunctions/helpers.js";
+
+class CollapseAndExpand extends HTMLElement {
+
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+        const template = document.createElement("template");
+        template.innerHTML =
+        `<style>
+            :host {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: ${getCSSVar("", "--gap-body")}
+            }
+            .shadow-wrapper {
+                border-radius: 100%;
+                position: relative;
+                bottom: var(--gap-body);
+                border: 1px solid gray;
+                box-shadow: 2px 3px 10px var(--primary-green);
+                transition: border 100ms, box-shadow 500ms, transform 500ms; /* Add transition to the border and shadow */
+                transition-timing-function: cubic-bezier(0.6, 0.04, 0.77, 0.45);
+                width: 25px;
+                height: 25px;
+                overflow: hidden;
+            }
+            /* Actual img that rotates */
+            #hide-header-div-btn {
+                position: absolute;
+                background: radial-gradient(farthest-corner at 2px 2px, #9bc7a6, var(--primary-green));
+                transition-property: transform;
+                transition-duration: 500ms;
+                transition-timing-function: cubic-bezier(0.6, 0.04, 0.77, 0.45);
+                width: 100%; /* Match the size of the parent */
+                height: 100%;
+            }
+            .shadow-wrapper:hover {
+                border: 1px solid black;
+            }
+            #hide-header-div-btn.expanded:active{ 
+                background: radial-gradient(farthest-corner at 20px 20px, #9bc7a6, var(--primary-green));
+            }
+            #hide-header-div-btn.collapsed:active{ 
+              background: radial-gradient(farthest-corner at 2px 2px, #9bc7a6, var(--primary-green));
+            }
+            #hide-header-div-btn.collapsed {
+                transform: rotate(180deg);
+                background: radial-gradient(farthest-corner at 20px 20px, #9bc7a6, var(--primary-green));
+            }
+            .shadow-wrapper:has(#hide-header-div-btn.expanded) {
+                transform: translateY(-50%);
+            }
+            </style>
+            <slot name="container"></slot>
+            <div class="shadow-wrapper">
+                <img id="hide-header-div-btn" class="expanded" src="../pictures/icons8-expand-24.png" alt="arrow" />
+            </div>`
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+        // const container = this.shadowRoot.querySelector("slot[name='container']");
+        const container = document.querySelector("div[id='collapse-div-test']");
+        container.style.height = "100px";
+        container.style.width = "100px";
+        container.style.transition = "height 500ms";
+        console.log(container.style ?? "helloooo");
+        container.className = "expanded";
+        const hideContainerBtn = this.shadowRoot.getElementById("hide-header-div-btn");
+        hideContainerBtn.addEventListener('click', () => {
+            if (container.className === "collapsed") {
+                container.className = "expanded";
+                hideContainerBtn.className = "expanded";
+                container.style.height = '100px';
+            } else {
+                container.className = "collapsed";
+                hideContainerBtn.className = "collapsed";
+                container.style.height = '0px';
+            }
+        });
+        
+    }
+    
+    connectedCallback(){
+        // const hideContainerBtn = this.shadowRoot.getElementById("hide-header-div-btn");
+        // hideContainerBtn.addEventListener('click', () => this.toggleCollapse());
+    }
+    toggleCollapse() {
+        const container = this.shadowRoot.querySelector("slot[name='container']");
+        if(container.classList.contains('collapsed')) {
+            container.classList.remove('collapsed');
+            container.classList.add('expanded');
+        } else {
+            container.classList.remove('expanded');
+            container.classList.add('collapsed');
+        }
+
+    }
+}
+
+customElements.define('collapse-and-expand', CollapseAndExpand);

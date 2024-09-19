@@ -68,7 +68,6 @@ class PostItForm extends HTMLElement {
     if (this.headerInput) {
       this.headerInput.addEventListener("click", this.handleInputClick);
     }
-    console.log(getCSSVar("", "--hand-cursor"));
   }
 
   // Lifecycle method called when the element is disconnected from the DOM
