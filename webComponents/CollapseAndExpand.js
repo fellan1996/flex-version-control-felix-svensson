@@ -1,20 +1,49 @@
 import { getCSSVar } from "../helperFunctions/helpers.js";
 
-class CollapseAndExpand extends HTMLElement {
+const attributes = {
+  WIDTH: "width",
+  HEIGHT: "height",
+  BACKGROUND: "background",
+  TRANSITION: "transition",
+};
 
-    constructor() {
-        super();
-        this.attachShadow({ mode: "open" });
-        const template = document.createElement("template");
-        template.innerHTML =
-        `<style>
+function isValueInPixels(value) {
+  const regex = /[0-9]+(?:\.[0-9]+)?(?=px)/;
+
+  return regex.test(value);
+}
+
+const defaultStyles = {
+  width: "100%",
+  height: "200px",
+  transition: "height 200ms",
+  background: "none",
+};
+
+class CollapseAndExpand extends HTMLElement {
+  #parentContainer = null;
+  static observedAttributes = [
+    attributes.WIDTH,
+    attributes.HEIGHT,
+    attributes.BACKGROUND,
+    attributes.TRANSITION,
+  ];
+
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: "open" });
+    const template = document.createElement("template");
+    template.innerHTML = ` <div class="parent-container">
+        <style>
             :host {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: ${getCSSVar("", "--gap-body")}
-            }
-            .shadow-wrapper {
+                gap: ${getCSSVar("", "--gap-body")};
+                width: 100%;
+                height: fit-content;
+                }
+                .shadow-wrapper {
                 border-radius: 100%;
                 position: relative;
                 bottom: var(--gap-body);
@@ -25,6 +54,7 @@ class CollapseAndExpand extends HTMLElement {
                 width: 25px;
                 height: 25px;
                 overflow: hidden;
+                cursor: ${getCSSVar("", "--hand-cursor") ?? auto};
             }
             /* Actual img that rotates */
             #hide-header-div-btn {
@@ -54,48 +84,92 @@ class CollapseAndExpand extends HTMLElement {
             }
             </style>
             <slot name="container"></slot>
+        </div>
             <div class="shadow-wrapper">
                 <img id="hide-header-div-btn" class="expanded" src="../pictures/icons8-expand-24.png" alt="arrow" />
-            </div>`
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
+            </div>`;
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this.#parentContainer = shadow.querySelector(".parent-container");
 
-        // const container = this.shadowRoot.querySelector("slot[name='container']");
-        const container = document.querySelector("div[id='collapse-div-test']");
-        container.style.height = "100px";
-        container.style.width = "100px";
-        container.style.transition = "height 500ms";
-        console.log(container.style ?? "helloooo");
-        container.className = "expanded";
-        const hideContainerBtn = this.shadowRoot.getElementById("hide-header-div-btn");
-        hideContainerBtn.addEventListener('click', () => {
-            if (container.className === "collapsed") {
-                container.className = "expanded";
-                hideContainerBtn.className = "expanded";
-                container.style.height = '100px';
-            } else {
-                container.className = "collapsed";
-                hideContainerBtn.className = "collapsed";
-                container.style.height = '0px';
-            }
-        });
-        
+    const width = this.getAttribute(attributes.WIDTH);
+    if (width && isValueInPixels(width)) {
+      this.#parentContainer.style.width = width;
+    } else {
+      this.#parentContainer.style.width = defaultStyles.width;
+      console.error(
+        `Please set a ${attributes.WIDTH} attribute to the resizer tag.`
+      );
     }
-    
-    connectedCallback(){
-        // const hideContainerBtn = this.shadowRoot.getElementById("hide-header-div-btn");
-        // hideContainerBtn.addEventListener('click', () => this.toggleCollapse());
+
+    const height = this.getAttribute(attributes.HEIGHT);
+    if (height && isValueInPixels(height)) {
+      this.#parentContainer.style.height = height;
+    } else {
+      this.#parentContainer.style.height = defaultStyles.height;
+      console.error(
+        `Please set a ${attributes.HEIGHT} attribute to the resizer tag.`
+      );
     }
-    toggleCollapse() {
-        const container = this.shadowRoot.querySelector("slot[name='container']");
-        if(container.classList.contains('collapsed')) {
-            container.classList.remove('collapsed');
-            container.classList.add('expanded');
+
+    const background = this.getAttribute(attributes.BACKGROUND);
+    if (background && typeof background === "string") {
+      this.#parentContainer.style.background = background;
+    } else {
+      this.#parentContainer.style.background = defaultStyles.background;
+      console.error(
+        `Please set a ${attributes.BACKGROUND} attribute to the resizer tag.`
+      );
+    }
+
+    const transition = this.getAttribute(attributes.TRANSITION);
+    if (transition && typeof transition === "string") {
+      this.#parentContainer.style.transition = transition;
+    } else {
+      this.#parentContainer.style.transition = defaultStyles.transition;
+      console.error(
+        `Please set a ${attributes.TRANSITION} attribute to the resizer tag.`
+      );
+    }
+
+    this.#parentContainer.className = "expanded";
+    const hideContainerBtn = shadow.getElementById("hide-header-div-btn");
+    hideContainerBtn.addEventListener("click", () => {
+      if (this.#parentContainer.className === "collapsed") {
+        this.#parentContainer.className = "expanded";
+        hideContainerBtn.className = "expanded";
+        if (height && isValueInPixels(height)) {
+          this.#parentContainer.style.height = height;
         } else {
-            container.classList.remove('expanded');
-            container.classList.add('collapsed');
+          this.#parentContainer.style.height = defaultStyles.height;
+          console.error(
+            `Please set a ${attributes.HEIGHT} attribute to the resizer tag.`
+          );
         }
+      } else {
+        this.#parentContainer.className = "collapsed";
+        hideContainerBtn.className = "collapsed";
+        this.#parentContainer.style.height = "0px";
+      }
+    });
+  }
 
+  connectedCallback() {
+    // const hideContainerBtn = this.shadowRoot.getElementById("hide-header-div-btn");
+    // hideContainerBtn.addEventListener('click', () => this.toggleCollapse());
+  }
+  toggleCollapse() {
+    const container = this.shadowRoot.querySelector("slot[name='container']");
+    if (container.classList.contains("collapsed")) {
+      container.classList.remove("collapsed");
+      container.classList.add("expanded");
+    } else {
+      container.classList.remove("expanded");
+      container.classList.add("collapsed");
     }
+  }
 }
 
 customElements.define('collapse-and-expand', CollapseAndExpand);
+document.addEventListener('load', () => {
+    // Custom element registration and initialization here
+});

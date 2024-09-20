@@ -4,19 +4,6 @@ const form = postItFormTemplate.shadowRoot.querySelector("form");
 
 form.addEventListener("submit", createPostIt);
 
-
-const headerDiv = document.getElementById("header-div");
-const hideHeaderDivBtn = document.getElementById("hide-header-div-btn");
-hideHeaderDivBtn.addEventListener('click', () => {
-    if (headerDiv.className === "collapsed") {
-      headerDiv.className = "expanded";
-      hideHeaderDivBtn.className = "expanded";
-    } else {
-      headerDiv.className = "collapsed";
-      hideHeaderDivBtn.className = "collapsed";
-    }
-});
-
 function getCookie(name) {
   const cookieArray = document.cookie.split(";");
   for (let i = 0; i < cookieArray.length; i++) {
@@ -86,6 +73,9 @@ function displayPostIts() {
         postIt.style.backgroundColor = valueObj.backgroundColor;
         postIt.id = `post-it-nr.${i + 1}`;
       });
+    const preloader = document.getElementById("preloader");
+    // preloader.style.display = "none";
 }
+
 
 window.onload = displayPostIts;

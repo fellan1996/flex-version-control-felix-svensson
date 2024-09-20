@@ -17,7 +17,6 @@ class PostItForm extends HTMLElement {
               this.getAttribute("background") ?? rgb(175, 197, 197)
             };
             gap: 4px;
-            margin-top: 15px;
             align-items: center;
             padding: 15px;
             border-radius: 5%;
@@ -90,5 +89,7 @@ class PostItForm extends HTMLElement {
   }
 }
 
-// Define the custom element
 customElements.define("post-it-form", PostItForm);
+document.addEventListener('load', () => {
+  console.log("hello???")
+});

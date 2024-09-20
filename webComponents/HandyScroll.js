@@ -263,7 +263,6 @@ class HandyScroll extends HTMLElement {
     this.#recheckLatency(); // fixes issue Amphiluke/floating-scroll#2
   }
 }
-
-customElements.define("handy-scroll", HandyScroll);
-
-// export default HandyScroll;
+document.addEventListener('load', () => {
+  customElements.define("handy-scroll", HandyScroll);
+});

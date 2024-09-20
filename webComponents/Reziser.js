@@ -85,9 +85,6 @@ const positions = {
 class Resizer extends HTMLElement {
   #container = null;
   #resizeObserver = null;
-  #scrollInterval = null;
-  #isResizing = false;
-  #shouldScroll = false;
   #checkMousePositionInterval = null;
 
   static observedAttributes = [
@@ -685,5 +682,6 @@ class Resizer extends HTMLElement {
     this.#container.style.width = `${newWidth}px`;
   };
 }
-
-customElements.define("resizer-box", Resizer);
+document.addEventListener('load', () => {
+  customElements.define("resizer-box", Resizer);
+});

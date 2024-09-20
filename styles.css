@@ -17,19 +17,15 @@ body {
   flex-direction: column;
   gap: var(--gap-body);
 }
-#header-div {
-  margin: 0;
 
+#div-header {
+  height: 100%;
   background-image: linear-gradient(#82bc90, var(--primary-green));
-  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
-  position: relative;
-  height: 159px;
-  transition-property: height;
-  transition-duration: 500ms;
+
 }
 #main-h1 {
   font-size: 4rem;
@@ -40,82 +36,11 @@ body {
   margin: 0 5% 0 5%;
   display: flex;
   gap: 15px;
-  /* white-space: nowrap; */
-  /* overflow-wrap: normal; */
   flex-wrap: wrap;
   justify-content: center;
 }
 #main-h1 > div {
   word-break: keep-all;
-}
-#header-div.collapsed {
-  height: 0px;
-}
-#header-div.expanded {
-  height: 159px;
-}
-.shadow-wrapper {
-  border-radius: 100%;
-  position: relative;
-  bottom: var(--gap-body);
-  border: 1px solid gray;
-  box-shadow: 2px 3px 10px var(--primary-green);
-  transition: border 100ms, box-shadow 500ms, transform 500ms; /* Add transition to the border and shadow */
-  transition-timing-function: cubic-bezier(0.6, 0.04, 0.77, 0.45);
-  width: 25px;
-  height: 25px;
-  overflow: hidden;
-}
-
-/* Actual img that rotates */
-#hide-header-div-btn {
-  position: absolute;
-  background: radial-gradient(farthest-corner at 2px 2px, #9bc7a6, var(--primary-green));
-  transition-property: transform;
-  transition-duration: 500ms;
-  transition-timing-function: cubic-bezier(0.6, 0.04, 0.77, 0.45);
-  width: 100%; /* Match the size of the parent */
-  height: 100%;
-}
-.shadow-wrapper:hover {
-  border: 1px solid black;
-}
-#hide-header-div-btn.expanded:active{ 
-  background: radial-gradient(farthest-corner at 20px 20px, #9bc7a6, var(--primary-green));
-}
-#hide-header-div-btn.collapsed:active{ 
-  background: radial-gradient(farthest-corner at 2px 2px, #9bc7a6, var(--primary-green));
-}
-
-#hide-header-div-btn.collapsed {
-  transform: rotate(180deg);
-  background: radial-gradient(farthest-corner at 20px 20px, #9bc7a6, var(--primary-green));
-
-}
-.shadow-wrapper:has(#hide-header-div-btn.expanded) {
-  transform: translateY(-50%);
-}
-form > * {
-  width: 280px;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(175, 197, 197);
-  gap: 4px;
-  margin-top: 15px;
-  align-items: center;
-  padding: 15px;
-  border-radius: 5%;
-}
-form > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2px;
-}
-form > button {
-  width: 54px;
 }
 #board {
   display: flex;
@@ -192,9 +117,9 @@ a {
 }
 
 
-@media only screen and (max-width: 372px) {
+@media only screen and (max-width: 380px) {
   #main-h1 {
-    gap: 0px;
     margin: 0 10% 0 10%;
+    gap: 0px;
   }
 }

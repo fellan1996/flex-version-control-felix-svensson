@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="webComponents/PostItForm.js" defer></script>
+    <script type="module" src="webComponents/PostItForm.js"></script>
     <script type="module" src="scripts.js" defer></script>
-    <script type="module" src="./webComponents/Reziser.js" defer></script>
-    <script type="module" src="./webComponents/CollapseAndExpand.js" defer></script>
+    <script type="module" src="./webComponents/Reziser.js"></script>
+    <script type="module" src="./webComponents/CollapseAndExpand.js"></script>
     <script type="module" src="./webComponents/HandyScroll.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,57 +18,67 @@
     <title>Post-it notes</title>
   </head>
   <body>
-    <div id="header-div" class="expanded">
-      <!-- <h1 id="main-h1">Post-it notes</h1> -->
-      <h1 id="main-h1"><div>Post-it</div><div>notes</div></h1>
-    </div>
-    <div class="shadow-wrapper">
-      <img id="hide-header-div-btn" class="expanded" src="pictures/icons8-expand-24.png" alt="arrow" />
-    </div>
+    <!-- <div
+      id="preloader"
+      style="background: rgb(159, 194, 167) url(pictures/preloader.gif) no-repeat center center; background-size: 25%; height: 100vh; width: 100%; z-index: 100"
+    ></div> -->
+    <collapse-and-expand
+      background="none"
+      height="160px"
+      transition="height 200ms"
+    >
+      <div slot="container" id="div-header">
+        <h1 id="main-h1">
+          <div>Post-it</div>
+          <div>notes</div>
+        </h1>
+      </div>
+    </collapse-and-expand>
     <div id="create-post-it">
       <post-it-form background="lightgreen"
         ><span slot="title-in-form">Create a post it</span></post-it-form
       >
     </div>
     <div id="board"></div>
+    <style></style>
     <resizer-box
-    width="300px"
-    height="100px"
-    margin="25px"
-    max-height="500px"
-    max-width="550px"
-    resize-bottom-right
-    resize-bottom
-    resize-right
-    resize-bottom-left
+      width="300px"
+      height="100px"
+      margin="25px"
+      max-height="500px"
+      max-width="550px"
+      resize-bottom-right
+      resize-bottom
+      resize-right
+      resize-bottom-left
     >
-    <div class="myBox" slot="content" >
-          <main class="parent">
-            <div>HelloHello HelloHelloHelloHelloHello</div>
-            <div>HelloHello HelloHelloHelloHelloHello</div>
-            <div>HelloHello HelloHelloHelloHelloHello</div>
-            <div>HelloHello HelloHelloHelloHelloHello</div>
-          </main>
-        </div>
-      </resizer-box>
-      <div
-      id="custom-viewport"
-      style="height: fit-content; width: min(75vw, 500px); overflow: auto;"
-      >
-      <div id="horizontally-scrollable" class="custom-grid">
+      <div class="myBox" slot="content">
+        <main class="parent">
           <div>HelloHello HelloHelloHelloHelloHello</div>
           <div>HelloHello HelloHelloHelloHelloHello</div>
           <div>HelloHello HelloHelloHelloHelloHello</div>
           <div>HelloHello HelloHelloHelloHelloHello</div>
+        </main>
       </div>
-      <handy-scroll owner="horizontally-scrollable" viewport="custom-viewport"></handy-scroll>
+    </resizer-box>
+    <div
+      id="custom-viewport"
+      style="height: fit-content; width: min(75vw, 500px); overflow: auto"
+    >
+      <div id="horizontally-scrollable" class="custom-grid">
+        <div>HelloHello HelloHelloHelloHelloHello</div>
+        <div>HelloHello HelloHelloHelloHelloHello</div>
+        <div>HelloHello HelloHelloHelloHelloHello</div>
+        <div>HelloHello HelloHelloHelloHelloHello</div>
+      </div>
+      <handy-scroll
+        owner="horizontally-scrollable"
+        viewport="custom-viewport"
+      ></handy-scroll>
     </div>
     <p>
       icons and cursors by
       <a target="_blank" href="https://icons8.com">Icons8</a>
     </p>
-    <collapse-and-expand>
-      <div slot="container" style="background-color: green;" id="collapse-div-test"></div>
-    </collapse-and-expand>
   </body>
 </html>
