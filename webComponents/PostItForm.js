@@ -90,6 +90,3 @@ class PostItForm extends HTMLElement {
 }
 
 customElements.define("post-it-form", PostItForm);
-document.addEventListener('load', () => {
-  console.log("hello???")
-});

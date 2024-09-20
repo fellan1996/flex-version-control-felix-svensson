@@ -682,6 +682,4 @@ class Resizer extends HTMLElement {
     this.#container.style.width = `${newWidth}px`;
   };
 }
-document.addEventListener('load', () => {
-  customElements.define("resizer-box", Resizer);
-});
+customElements.define("resizer-box", Resizer);

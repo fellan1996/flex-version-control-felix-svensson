@@ -263,6 +263,5 @@ class HandyScroll extends HTMLElement {
     this.#recheckLatency(); // fixes issue Amphiluke/floating-scroll#2
   }
 }
-document.addEventListener('load', () => {
-  customElements.define("handy-scroll", HandyScroll);
-});
+// customElements.define("handy-scroll", HandyScroll);
+//WHY?? why mustn't the handy-scroll be defined?

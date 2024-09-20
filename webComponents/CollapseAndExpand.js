@@ -170,6 +170,3 @@ class CollapseAndExpand extends HTMLElement {
 }
 
 customElements.define('collapse-and-expand', CollapseAndExpand);
-document.addEventListener('load', () => {
-    // Custom element registration and initialization here
-});
