@@ -1,4 +1,4 @@
-
+"use strict";
 let getAttributeErrorMessage = (attribute) =>
   `Attribute ‘${attribute}’ must reference a valid container ‘id’`;
 

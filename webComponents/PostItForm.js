@@ -1,3 +1,4 @@
+"use strict";
 import { getCSSVar } from "../helperFunctions/helpers.js";
 
 class PostItForm extends HTMLElement {
@@ -9,17 +10,21 @@ class PostItForm extends HTMLElement {
         <style>
           form > * {
             width: 280px;
-          }
-          form {
-            display: flex;
-            flex-direction: column;
-            background-color: ${
-              this.getAttribute("background") ?? rgb(175, 197, 197)
-            };
-            gap: 4px;
-            align-items: center;
-            padding: 15px;
-            border-radius: 5%;
+            }
+            form {
+              border: 1px solid black;
+              box-shadow: 20px 20px 50px ${
+                this.getAttribute("box-shadow") ?? "#73a383"
+              };
+              display: flex;
+              flex-direction: column;
+              background: ${
+                this.getAttribute("background") ?? "rgb(175, 197, 197)"
+              };
+              gap: 4px;
+              align-items: center;
+              padding: 15px;
+              border-radius: 5%;
             }
             form > div {
             display: flex;

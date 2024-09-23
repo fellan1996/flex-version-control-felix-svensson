@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="webComponents/PostItForm.js"></script>
-    <script type="module" src="scripts.js" defer></script>
+    <script src="scripts.js" defer></script>
     <script type="module" src="./webComponents/Reziser.js"></script>
     <script type="module" src="./webComponents/CollapseAndExpand.js"></script>
-    <script type="module" src="./webComponents/HandyScroll.js" defer></script>
+    <script type="module" src="./webComponents/HandyScroll.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
     <title>Post-it notes</title>
   </head>
   <body>
@@ -35,7 +35,7 @@
       </div>
     </collapse-and-expand>
     <div id="create-post-it">
-      <post-it-form background="lightgreen"
+      <post-it-form background="linear-gradient(#82bc90, var(--primary-green))"
         ><span slot="title-in-form">Create a post it</span></post-it-form
       >
     </div>
@@ -62,6 +62,7 @@
       </div>
     </resizer-box>
     <div
+      class="handy-scroll"
       id="custom-viewport"
       style="height: fit-content; width: min(75vw, 500px); overflow: auto"
     >

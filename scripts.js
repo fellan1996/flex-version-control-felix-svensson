@@ -1,3 +1,4 @@
+"use strict";
 const postItFormTemplate = document.querySelector("post-it-form");
 
 const form = postItFormTemplate.shadowRoot.querySelector("form");

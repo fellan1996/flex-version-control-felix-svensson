@@ -1,7 +1,7 @@
-html {
-  padding: 0;
-  scrollbar-color: #a7c9b6 #f0f0f0; /* thumb color, track color */
-  scrollbar-width: thin;
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 :root {
   --hand-cursor: url("pictures/icons8-hand-up-32.png") 10 0, auto;
@@ -9,6 +9,17 @@ html {
   --3d-pointer: url("pictures/icons8-3d-pointer-32.png"), auto;
   --primary-green: #73a383;
   --gap-body: 25px;
+  --default-font-family: "Roboto", sans-serif;
+  --default-font-weight: 400;
+  --default-font-style: normal;
+}
+html {
+  padding: 0;
+  scrollbar-color: #a7c9b6 #f0f0f0; /* thumb color, track color */
+  scrollbar-width: thin;
+  font-family: var(--default-font-family);
+  font-weight: var(--default-font-weight);
+  font-style: var(--default-font-style);
 }
 body {
   margin: 0;
@@ -16,6 +27,9 @@ body {
   align-items: center;
   flex-direction: column;
   gap: var(--gap-body);
+}
+#create-post-it {
+  border-radius: 5%;
 }
 
 #div-header {

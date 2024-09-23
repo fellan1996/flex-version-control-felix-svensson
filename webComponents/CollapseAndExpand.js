@@ -1,3 +1,4 @@
+"use strict";
 import { getCSSVar } from "../helperFunctions/helpers.js";
 
 const attributes = {
