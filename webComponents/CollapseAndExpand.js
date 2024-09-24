@@ -23,12 +23,19 @@ const defaultStyles = {
 
 class CollapseAndExpand extends HTMLElement {
   #parentContainer = null;
+  #height = null;
   static observedAttributes = [
     attributes.WIDTH,
     attributes.HEIGHT,
     attributes.BACKGROUND,
     attributes.TRANSITION,
   ];
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if(name === "height" && oldValue !== newValue) {
+      this.#height = newValue;
+    }
+  };
 
   constructor() {
     super();
@@ -101,10 +108,9 @@ class CollapseAndExpand extends HTMLElement {
         `Please set a ${attributes.WIDTH} attribute to the resizer tag.`
       );
     }
-
-    const height = this.getAttribute(attributes.HEIGHT);
-    if (height && isValueInPixels(height)) {
-      this.#parentContainer.style.height = height;
+    this.#height = this.getAttribute(attributes.HEIGHT);
+    if (this.#height && isValueInPixels(this.#height)) {
+      this.#parentContainer.style.height = this.#height;
     } else {
       this.#parentContainer.style.height = defaultStyles.height;
       console.error(
@@ -135,11 +141,12 @@ class CollapseAndExpand extends HTMLElement {
     this.#parentContainer.className = "expanded";
     const hideContainerBtn = shadow.getElementById("hide-header-div-btn");
     hideContainerBtn.addEventListener("click", () => {
+      console.log(this.#height)
       if (this.#parentContainer.className === "collapsed") {
         this.#parentContainer.className = "expanded";
         hideContainerBtn.className = "expanded";
-        if (height && isValueInPixels(height)) {
-          this.#parentContainer.style.height = height;
+        if (this.#height && isValueInPixels(this.#height)) {
+          this.#parentContainer.style.height = this.#height;
         } else {
           this.#parentContainer.style.height = defaultStyles.height;
           console.error(
@@ -157,16 +164,6 @@ class CollapseAndExpand extends HTMLElement {
   connectedCallback() {
     // const hideContainerBtn = this.shadowRoot.getElementById("hide-header-div-btn");
     // hideContainerBtn.addEventListener('click', () => this.toggleCollapse());
-  }
-  toggleCollapse() {
-    const container = this.shadowRoot.querySelector("slot[name='container']");
-    if (container.classList.contains("collapsed")) {
-      container.classList.remove("collapsed");
-      container.classList.add("expanded");
-    } else {
-      container.classList.remove("expanded");
-      container.classList.add("collapsed");
-    }
   }
 }
 

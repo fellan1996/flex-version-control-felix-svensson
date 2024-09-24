@@ -2,10 +2,14 @@
 import { getCSSVar } from "../helperFunctions/helpers.js";
 
 class PostItForm extends HTMLElement {
+  #initialBackground = null;
+  #background = null;
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     const template = document.createElement("template");
+    this.#initialBackground = this.getAttribute("background");
+    this.#background = this.#initialBackground;
     template.innerHTML = `
         <style>
           form > * {
@@ -19,7 +23,7 @@ class PostItForm extends HTMLElement {
               display: flex;
               flex-direction: column;
               background: ${
-                this.getAttribute("background") ?? "rgb(175, 197, 197)"
+                this.#background ?? "rgb(175, 197, 197)"
               };
               gap: 4px;
               align-items: center;
@@ -84,12 +88,16 @@ class PostItForm extends HTMLElement {
     return ["background"];
   }
 
-  // Callback when an observed attribute changes
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "background") {
-      this.form = this.shadowRoot.getElementById("form");
-      this.form.style.backgroundColor = newValue;
-      // this.shadowRoot.style.backgroundColor = newValue; // Update background color
+      console.log(this.#background);
+      const form = this.shadowRoot.getElementById("form");
+      if(newValue === "normal") {
+        form.style.background = this.#initialBackground;
+      } else {
+        this.#background = newValue;
+        form.style.background = newValue;
+      }
     }
   }
 }

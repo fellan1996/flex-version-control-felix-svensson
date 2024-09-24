@@ -5,6 +5,21 @@ const form = postItFormTemplate.shadowRoot.querySelector("form");
 
 form.addEventListener("submit", createPostIt);
 
+const radioGroupContainer = document.querySelector(".radio-group-container");
+const formElement = document.querySelector("post-it-form");
+radioGroupContainer.addEventListener("change", function (event) {
+  // Check if the target of the event is an input element with type radio
+  if (event.target && event.target.matches('input[type="radio"]')) {
+    const selectedColor = event.target.value;
+    formElement.setAttribute("background", selectedColor);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const defaultRadio = document.querySelector('input[value="normal"]');
+  defaultRadio.checked = true;
+});
+
 function getCookie(name) {
   const cookieArray = document.cookie.split(";");
   for (let i = 0; i < cookieArray.length; i++) {
@@ -74,9 +89,8 @@ function displayPostIts() {
         postIt.style.backgroundColor = valueObj.backgroundColor;
         postIt.id = `post-it-nr.${i + 1}`;
       });
-    const preloader = document.getElementById("preloader");
-    // preloader.style.display = "none";
+  const preloader = document.getElementById("preloader");
+  // preloader.style.display = "none";
 }
-
 
 window.onload = displayPostIts;

@@ -24,7 +24,7 @@
     ></div> -->
     <collapse-and-expand
       background="none"
-      height="160px"
+      height="190px"
       transition="height 200ms"
     >
       <div slot="container" id="div-header">
@@ -32,15 +32,42 @@
           <div>Post-it</div>
           <div>notes</div>
         </h1>
+        <div class="radio-group-container">
+          <div class="label-and-radio-input">
+            <label class="form-control" for="background-setter-normal"
+              >Normal
+            </label>
+              <input type="radio" name="desired-background"
+              id="background-setter-normal" value="normal" checked
+              />
+          </div>
+          <div class="label-and-radio-input">
+            <label class="form-control" for="background-setter-green"
+              >Green</label>
+            <input
+              type="radio"
+              name="desired-background"
+              id="background-setter-green"
+              value="green"
+            />
+          </div>
+          <div class="label-and-radio-input">
+            <label class="form-control" for="background-setter-orange"
+              >Orange</label>
+            <input
+              type="radio"
+              name="desired-background"
+              id="background-setter-orange"
+              value="orange"
+            />
+          </div>
+        </div>
       </div>
     </collapse-and-expand>
-    <div id="create-post-it">
-      <post-it-form background="linear-gradient(#82bc90, var(--primary-green))"
-        ><span slot="title-in-form">Create a post it</span></post-it-form
-      >
-    </div>
+    <post-it-form background="linear-gradient(#82bc90, var(--primary-green))"
+      ><span slot="title-in-form">Create a post it</span></post-it-form
+    >
     <div id="board"></div>
-    <style></style>
     <resizer-box
       width="300px"
       height="100px"

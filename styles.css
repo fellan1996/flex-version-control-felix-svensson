@@ -12,6 +12,8 @@
   --default-font-family: "Roboto", sans-serif;
   --default-font-weight: 400;
   --default-font-style: normal;
+  --form-control-color: rebeccapurple;
+
 }
 html {
   padding: 0;
@@ -28,18 +30,14 @@ body {
   flex-direction: column;
   gap: var(--gap-body);
 }
-#create-post-it {
-  border-radius: 5%;
-}
-
 #div-header {
   height: 100%;
   background-image: linear-gradient(#82bc90, var(--primary-green));
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
 }
 #main-h1 {
   font-size: 4rem;
@@ -129,11 +127,58 @@ a {
 #custom-viewport {
   border: 3px solid black;
 }
+.form-control {
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: var(--hand-cursor);
+}
+input[type="radio"] {
+  -webkit-appearance: none;
+  cursor: var(--hand-cursor);
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 100%;
+  display: grid;
+  place-content: center;
+}
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 100%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+  background-color: CanvasText;
+}
+.radio-group-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: fit-content;
+}
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+.label-and-radio-input {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  gap: 0.3rem;
+  &:hover {
+    color: var(--form-control-color);
+  }
+}
 
-
-@media only screen and (max-width: 380px) {
+@media only screen and (max-width: 420px) {
   #main-h1 {
-    margin: 0 10% 0 10%;
+    margin: -5px 10% 0 10%;
     gap: 0px;
   }
 }
