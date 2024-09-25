@@ -17,7 +17,7 @@ function isValueInPixels(value) {
 const defaultStyles = {
   width: "100%",
   height: "200px",
-  transition: "height 200ms",
+  transition: "height 200ms cubic-bezier(0.39, 0.58, 0.57, 1)",
   background: "none",
 };
 

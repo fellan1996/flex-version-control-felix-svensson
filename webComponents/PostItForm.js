@@ -6,43 +6,51 @@ class PostItForm extends HTMLElement {
   #background = null;
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    const shadow = this.attachShadow({ mode: "open" });
     const template = document.createElement("template");
     this.#initialBackground = this.getAttribute("background");
     this.#background = this.#initialBackground;
     template.innerHTML = `
         <style>
-          form > * {
-            width: 280px;
-            }
-            form {
-              border: 1px solid black;
-              box-shadow: 20px 20px 50px ${
-                this.getAttribute("box-shadow") ?? "#73a383"
-              };
-              display: flex;
-              flex-direction: column;
-              background: ${
-                this.#background ?? "rgb(175, 197, 197)"
-              };
-              gap: 4px;
-              align-items: center;
-              padding: 15px;
-              border-radius: 5%;
-            }
-            form > div {
+          :host {
+            width: min(85%, 280px);
+          }
+          form {
+            border: 1px solid black;
+            box-shadow: 20px 20px 50px ${
+              this.getAttribute("box-shadow") ?? "#73a383"
+            };
+            display: flex;
+            flex-direction: column;
+            background: ${
+              this.#background ?? "rgb(175, 197, 197)"
+            };
+            gap: 4px;
+            align-items: center;
+            padding: 15px;
+            border-radius: 5%;
+          }
+            .color-picker {
+            width: fit-content;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 2px;
-            }
-            form > button {
-              width: 54px;
-              }
-            label {
-              cursor: ${getCSSVar("", "--3d-pointer")};
-            }
+          }
+          form > button {
+            width: 54px;
+          }
+          label {
+            cursor: ${getCSSVar("", "--3d-pointer")};
+          }
+          #header-input {
+            width: 90%;
+          }
+          textarea {
+            width: 90%;
+          }
           input, textarea {
+            border-radius: 5%;
             cursor: ${getCSSVar("", "--edit-pen-cursor")};
           }
           button {
@@ -62,7 +70,7 @@ class PostItForm extends HTMLElement {
       `;
 
     // Clone the template content and append it to the shadow DOM
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    shadow.appendChild(template.content.cloneNode(true));
     this.handleInputClick = this.handleInputClick.bind(this);
   }
 
@@ -90,7 +98,6 @@ class PostItForm extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "background") {
-      console.log(this.#background);
       const form = this.shadowRoot.getElementById("form");
       if(newValue === "normal") {
         form.style.background = this.#initialBackground;

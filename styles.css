@@ -131,6 +131,9 @@ a {
   font-size: 1rem;
   font-weight: 400;
   cursor: var(--hand-cursor);
+  padding-right: 7px;
+  margin-right: -7px;
+
 }
 input[type="radio"] {
   -webkit-appearance: none;
@@ -144,6 +147,8 @@ input[type="radio"] {
   border-radius: 100%;
   display: grid;
   place-content: center;
+  background-color: rgb(168, 168, 168);
+
 }
 input[type="radio"]::before {
   content: "";

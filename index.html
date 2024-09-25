@@ -7,6 +7,7 @@
     <script src="scripts.js" defer></script>
     <script type="module" src="./webComponents/Reziser.js"></script>
     <script type="module" src="./webComponents/CollapseAndExpand.js"></script>
+    <script type="module" src="./webComponents/RadioInputs.js"></script>
     <script type="module" src="./webComponents/HandyScroll.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,43 +26,18 @@
     <collapse-and-expand
       background="none"
       height="190px"
-      transition="height 200ms"
     >
       <div slot="container" id="div-header">
         <h1 id="main-h1">
           <div>Post-it</div>
           <div>notes</div>
         </h1>
-        <div class="radio-group-container">
-          <div class="label-and-radio-input">
-            <label class="form-control" for="background-setter-normal"
-              >Normal
-            </label>
-              <input type="radio" name="desired-background"
-              id="background-setter-normal" value="normal" checked
-              />
-          </div>
-          <div class="label-and-radio-input">
-            <label class="form-control" for="background-setter-green"
-              >Green</label>
-            <input
-              type="radio"
-              name="desired-background"
-              id="background-setter-green"
-              value="green"
-            />
-          </div>
-          <div class="label-and-radio-input">
-            <label class="form-control" for="background-setter-orange"
-              >Orange</label>
-            <input
-              type="radio"
-              name="desired-background"
-              id="background-setter-orange"
-              value="orange"
-            />
-          </div>
-        </div>
+        <radio-inputs
+          labelsAndValues="Normal,normal;Green,green;Orange,orange"
+          checkedByDefault="Normal"
+          name="desired-background"
+          fillColor="rebeccapurple"
+        ></radio-inputs>
       </div>
     </collapse-and-expand>
     <post-it-form background="linear-gradient(#82bc90, var(--primary-green))"
